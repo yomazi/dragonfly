@@ -1,0 +1,7 @@
+.clasp.json
+.prettierrc
+.gitignore
+README.md
+assets/
+.git/
+README.md
