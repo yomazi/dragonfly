@@ -6,7 +6,7 @@
   "addOns": {
     "common": {
       "name": "dragonfly",
-      "logoUrl": "https://media.cnn.com/api/v1/images/stellar/prod/ap26076101896369.jpg?c=original&q=w_860,c_fill/f_webp",
+      "logoUrl": "https://raw.githubusercontent.com/yomazi/dragonfly/main/assets/dragonfly.png",
       "homepageTrigger": {
         "runFunction": "onHomepage"
       }
