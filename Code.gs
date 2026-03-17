@@ -16,8 +16,7 @@ function buildCard(buttonLabel, gmailContext) {
   // Build the URL — append context as query params if available
   let url = APP_URL + "/dragonfly";
   if (gmailContext) {
-    const params = new URLSearchParams(gmailContext);
-    url += "?" + params.toString();
+    url += "?messageId=" + gmailContext.messageId + "&threadId=" + gmailContext.threadId;
   }
 
   const openButton = CardService.newTextButton().setText(buttonLabel).setOpenLink(
