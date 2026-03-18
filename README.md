@@ -1,6 +1,6 @@
-#dragonfly
+# dragonfly
 A simple launcher for the raven app, embedded in a Gmail add-on.
-##Overview
+## Overview
 **dragonfly** is a Gmail add-on that bridges my inbox with [**raven**](https://github.com/yomazi/raven), an app I built to automate tasks in Google workspaces.
 
 It is:
@@ -22,8 +22,8 @@ That means I can use raven - which is hosted on my own server - to automate any 
 
 But first I have to get the info _into_ raven, and that's all dragonfly does.
 
-##Why Is This File So Long, Then?
-Because configuring and deploying Google Workspace add-ons is a lot. It took me a whole evening to get through it, and I don't want to have to go through that again. So this file contains:
+## Why Is This File So Long, Then?
+Because configuring and deploying Google Workspace add-ons is a lot. It took me a whole evening to get this straight, and I'm not spelunking through that fetid morass again. This file contains:
 
 - An explanation of the architecture decisions behind dragonfly
 - Local project setup
@@ -32,16 +32,16 @@ Because configuring and deploying Google Workspace add-ons is a lot. It took me 
 - How to install dragonfly on the account(s) that are meant to use it
 - Debugging
 
-##Architecture Decisions
-###Why Google Apps Script (not Node.js)?
+## Architecture Decisions
+### Why Google Apps Script (not Node.js)?
 Gmail add-ons cannot be served from a self-hosted Node.js server. The two real options are:
 
 - **Google Apps Script**: runs in Google's cloud, free, no infrastructure, native Gmail integration.
 - **Google Cloud Run** / **Cloud Functions**: technically possible, but adds significant complexity (auth, HTTPS, JSON Cards format) with no benefit for a simple launcher.
 
-###Deployment Model
+### Deployment Model
 Updates are deployed by **editing the existing deployment** (not creating a new one), so the Marketplace configuration never needs to change.
-###App Visibility: Public + Unlisted
+### App Visibility: Public + Unlisted
 Dragonfly is published as a versioned deployment on the Google Workspace Marketplace as a **public**, **unlisted app**.
 
 That's because:
@@ -53,8 +53,8 @@ Personal or developer accounts cannot create **private** apps on Google Workspac
 
 Since dragonfly is a **public** app, dragonfly can theoretically be installed by anyone without having to share the code - but since it is **unlisted**, it does not appear in a Google Workspace Marketplace search.
 
-##Local Project Setup
-###Repository Structure
+## Local Project Setup
+### Repository Structure
 The project lives in a GitHub repository with the following structure:
 
 ```
@@ -69,7 +69,7 @@ dragonfly/
     dragonfly.png      # Add-on icon (served via raw.githubusercontent.com)
 ```
 
-###.clasp.json
+### .clasp.json
 Created automatically by clasp or manually. Contains the Apps Script project ID. _Do not commit this to a public repository; it is a direct handle to your script project_.
 
 ```
@@ -79,7 +79,7 @@ Created automatically by clasp or manually. Contains the Apps Script project ID.
 }
 ```
 
-###.claspignore
+### .claspignore
 Prevents clasp from uploading non-script files to Apps Script, which would cause errors:
 
 ```
@@ -90,13 +90,13 @@ README.md
 assets/
 ```
 
-###Icon Hosting
+### Icon Hosting
 Apps Script can't serve static files, and the manifest's `logoUrl` must point to an externally hosted image over HTTPS.
 
 The icon is part of this GitHub repository so that it can be hosted on GitHub. :-)
 
-##clasp Workflow
-###Initial Setup
+## clasp Workflow
+### Initial Setup
 Install clasp globally:
 
 `npm install -g @google/clasp`
@@ -110,13 +110,13 @@ Create or link a project. To link to an existing Apps Script project, create .cl
 
 `clasp create --type standalone`
 
-###Pushing Code
+### Pushing Code
 
 `clasp push`
 
 Uploads all files not excluded by `.claspignore` to the Apps Script project. Say yes if prompted about overwriting remote files.
 
-###Deploying Updates
+### Deploying Updates
 To update an existing deployment without changing the deployment ID (which would require updating the Marketplace config):
 
 - In the Apps Script editor, go to **Deploy** | **Manage deployments**
@@ -128,10 +128,10 @@ Why do it this way?
 
 Because deploying with **Deploy** | **New deployment**, would create a new deployment ID. To use that deployment ID, I'd have to update the Marketplace SDK configuration.
 
-##Google Cloud Project Setup
+## Google Cloud Project Setup
 Google Apps Script projects are associated with a default Google Clould Project. To link a script to a specific OAuth consent configuration, a new Google Cloud Project is needed. Without that, you can only use test deployments under the developer account.
 
-###Step 1: Create the Cloud Project
+### Step 1: Create the Cloud Project
 
 - Go to console.cloud.google.com
 - Click the project dropdown at the top | **New Project**
@@ -139,7 +139,7 @@ Google Apps Script projects are associated with a default Google Clould Project.
 
 Note the Project ID (e.g. {project name}-{6-digit code}) and the numeric Project Number
 
-###Step 2: Link to Apps Script
+### Step 2: Link to Apps Script
 
 - In the Apps Script editor, click the gear icon | **Project Settings**
 - Scroll to Google Cloud Platform project | **Change project**
@@ -147,7 +147,7 @@ Note the Project ID (e.g. {project name}-{6-digit code}) and the numeric Project
 
 ⚠ You must configure the OAuth consent screen before this step will succeed. If you get an error, complete Step 3 first and then come back.
 
-###Step 3: Configure OAuth Consent Screen
+### Step 3: Configure OAuth Consent Screen
 
 - In Cloud Console, go to **APIs & Services** | **OAuth consent screen**
 - Click **Get Started**
@@ -158,12 +158,12 @@ Note the Project ID (e.g. {project name}-{6-digit code}) and the numeric Project
 - After creation, go to **Audience** in the left nav
 - Under Test users, click **Add Users** and add the email of your target Workspace account
 
-###Step 4: Enable the Marketplace SDK
+### Step 4: Enable the Marketplace SDK
 
 - In Cloud Console, go to **APIs & Services** | Library
 - Search for **Google Workspace Marketplace SDK** | **Enable**
 
-###Step 5: Configure the Marketplace SDK
+### Step 5: Configure the Marketplace SDK
 
 - Go to APIs & Services → Google Workspace Marketplace SDK → App Configuration
 - App Visibility: select Public, then check Unlisted
@@ -176,7 +176,7 @@ Note the Project ID (e.g. {project name}-{6-digit code}) and the numeric Project
 - Developer Information: fill in name, website, email, trader status (non-trader)
 - Save
 
-###Step 6: Complete the Store Listing
+### Step 6: Complete the Store Listing
 
 - Go to **APIs & Services** | **Google Workspace Marketplace SDK** | **Store Listing**
 - Fill in required fields: app description, category, icon assets (at minimum 128x128)
@@ -185,17 +185,17 @@ Note the Project ID (e.g. {project name}-{6-digit code}) and the numeric Project
 
 ⚠ **Do not click Submit for Review**. That triggers the full public Google review process, which is not needed for an unlisted personal app. Draft Testers can install directly without review.
 
-##Installing on the Target Account
+## Installing on the Target Account
 
 Once the Store Listing is saved with your target account as a Draft Tester, install the add-on by navigating to the following URL while logged into the target Workspace account:
 
-`https://workspace.google.com/marketplace/app/dragonfly/YOUR_APP_ID`
+`https://workspace.google.com/marketplace/app/{your app name}/YOUR_APP_ID`
 
 _This URL is not listed anywhere in the console! You construct it from the App ID._
 
 The App ID is the numeric ID shown at the top of the App Configuration page.
 
-##Debugging
+## Debugging
 If the add-on throws an error in Gmail, check the execution logs:
 
 - In the Apps Script editor, click **Executions** in the left nav
