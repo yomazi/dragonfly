@@ -1,40 +1,37 @@
+/** @type {string} The display name of the add-on, used as the Card title. */
+const APP_TITLE = "dragonfly";
+
+/** @type {string} The base URL of the app. Thread and message IDs are appended as path segments when launching from a message context. */
 const APP_URL = "https://raven.neuron9.io/default/dragonfly"; // your app's base URL
+
+/** @type {string} URL of the header image displayed in the Card header. */
 const IMAGE_URL = "https://raw.githubusercontent.com/yomazi/dragonfly/main/assets/dragonfly.png";
+
+/** @type {string} Label for the launch button rendered in each Card. */
 const BUTTON_LABEL = "Launch Raven";
-const TOPLINES = [
-  "A sanity-inducing tool for Gmail.",
-  "A light in the dark fetid morass of Gmail.",
-  "Your Gmail sanity kit.",
-  "I'm dragonfly. You're welcome.",
-  "... it's good for you!",
-  "Gmail, but it's good.",
-  "A Gmail pressure valve.",
-  "Brain bleach for your inbox.",
-  "A Gmail exorcist.",
-  "Inbox therapy.",
-  "Gmail without the suck.",
-  "It's like Prozac for your inbox.",
-  "Gmail, minus the spiraling insanity.",
-  "Chaos tamer for Gmail.",
-  "An inbox whisperer.",
-  "Gmail detox kit.",
-  "Inbox damage control.",
-  "A Gmail intervention.",
-  "The calm inside your inbox storm.",
-  "Gmail, defanged.",
-];
 
+/**
+ * Paragraphs displayed in the Card section when no email is selected (homepage context).
+ * Supports inline HTML for bold/italic text, as rendered by CardService TextParagraph widgets.
+ *
+ * @type {string[]}
+ */
 const PARAGRAPHS_HOMEPAGE = [
-  "You don't have an email selected.",
-  "But you can still use <b>raven</b> to send emails about any show you want!",
+  "Use <b>raven</b> to automatically format and label any email you send.",
+  "",
   "Click the button below to get started.",
   "",
 ];
 
+/**
+ * Paragraphs displayed in the Card section when a Gmail message is open.
+ * Supports inline HTML for bold/italic text, as rendered by CardService TextParagraph widgets.
+ *
+ * @type {string[]}
+ */
 const PARAGRAPHS_MESSAGE_SELECTED = [
-  "You can use <b>raven</b> to respond or forward.",
+  "Use <b>raven</b> to apply this email's contents to new work tasks: automatically format and label any replay, forward, or new message you send, as well as categorize, rename and upload file attachments.",
+  "",
   "Click the button below to get started.",
   "",
 ];
-
-const PARAGRAPH_FILE_ATTACHMENTS = "File attachments:";
