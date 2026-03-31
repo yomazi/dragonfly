@@ -2,7 +2,7 @@
 const APP_TITLE = "dragonfly";
 
 /** @type {string} The base URL of the app. Thread and message IDs are appended as path segments when launching from a message context. */
-const APP_URL = "https://raven.neuron9.io/default/dragonfly"; // your app's base URL
+const APP_URL = "https://raven.neuron9.io/shows/default/dragonfly"; // your app's base URL
 
 /** @type {string} URL of the header image displayed in the Card header. */
 const IMAGE_URL = "https://raw.githubusercontent.com/yomazi/dragonfly/main/assets/dragonfly.png";
