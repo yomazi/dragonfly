@@ -25,7 +25,7 @@ That's it.
 
 ## Why is this file so long, then?
 
-Because configuring and deploying Google Workspace add-ons is a whole thing. It took me an evening to get it right; I don't want that to happen again, so I documented everything. This file contains:
+Because configuring and deploying Google Workspace add-ons is a whole thing. This file exists so that I don't have to spend another entire evening getting it all straight. This file contains:
 
 - An explanation of the architecture decisions behind dragonfly
 - Local project setup
